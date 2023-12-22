@@ -2,7 +2,7 @@
 #define TASK2_COPYSTACK_H
 
 #include <iostream>
-#include "QUEUEProject.h"
+#include "StackList.h"
 using namespace std;
 
 template <typename T>
