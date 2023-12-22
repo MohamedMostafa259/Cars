@@ -5,7 +5,22 @@
 #include "StackList.h"
 using namespace std;
 
-// (2)
+template <typename T>
+void copyStack(StackList<T>& s1, StackList<T>& s2) {
+    StackList<T> tempStack;
+
+
+    while (!s1.isEmpty()) {
+        tempStack.push(s1.top());
+        s1.pop();
+    }
+
+    while (!tempStack.isEmpty()) {
+        s2.push(tempStack.top());
+        tempStack.pop();
+    }
+}
+
 
 
 // (3)
