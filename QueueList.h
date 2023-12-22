@@ -1,5 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUEProject_H
+#define QUEUEProject_H
 
 #include <iostream>
 #include <list>
@@ -38,4 +38,4 @@ class TemplateQueueList {
         }
 };
 
-#endif //QUEUE_H
+#endif //QUEUEProject_H
