@@ -56,7 +56,53 @@ string convertToNS(int num, int base) {
 }
 
 // (5)
+string subtractLargeInts (const string &num1, const string &num2) {
+    StackList<unsigned char> greaterInt, smallerInt, finalAns;
+    string greaterNum;
+    string smallerNum;
+    size_t length1 = num1.length();
+    size_t length2 = num2.length();
+    size_t differenceOfDigits = 0;
+    if (length1 > length2){
+        greaterNum = num1;
+        smallerNum = num2;
+        differenceOfDigits = length1 - length2;
+    } else if (length2 > length1) {
+        greaterNum = num2;
+        smallerNum = num1;
+        differenceOfDigits = length2 - length1;
+    }
+    for (size_t i = 0; i < differenceOfDigits; ++i) {
+        smallerInt.push('0');
+    }
+    for (char i : greaterNum) {
+        greaterInt.push(i);
+    }
+    for (char i : smallerNum) {
+        smallerInt.push(i);
+    }
+    unsigned char smallerStackTop = smallerInt.pop();
+    unsigned char greaterStackTop = greaterInt.pop();
+    cout << greaterStackTop << endl << smallerStackTop << endl;
+    int value = greaterStackTop - smallerStackTop;
+    cout << value;
+    unsigned char unit;
+    cout << endl << "---------" << endl;
+    if (value < 0 ) {
+        cout << "--------" << endl;
+        greaterInt.push((greaterInt.pop() - 1));
+        unit = static_cast<unsigned char>(value + 10);
+        cout << "--------" << endl;
+        cout << unit << endl;
+        cout << "--------" << endl;
+        finalAns.push(unit);
+    } else {
+        finalAns.push(value);
+    }
+    cout << finalAns.top();
+    return "";
 
+}
 
 // (6)
 
@@ -79,7 +125,8 @@ int main() {
     cout << convertToNS(125, 1) << "\n"; // Error!! The Allowed Range for Base is [2, 20]
 
     // Test for Function: (5)
-
+    cout << "===========" << endl;
+    subtractLargeInts("19547465464", "5555555");
 
     // Test for Function: (6)
 
