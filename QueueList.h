@@ -1,5 +1,5 @@
-#ifndef DATA_STRUCTURE_QUEUE_H
-#define DATA_STRUCTURE_QUEUE_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include <iostream>
 #include <list>
@@ -38,4 +38,4 @@ class TemplateQueueList {
         }
 };
 
-#endif //DATA_STRUCTURE_QUEUE_H
+#endif //QUEUE_H
