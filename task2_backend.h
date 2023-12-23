@@ -81,26 +81,28 @@ string subtractLargeInts (const string &num1, const string &num2) {
     for (char i : smallerNum) {
         smallerInt.push(i);
     }
-    unsigned char smallerStackTop = smallerInt.pop();
-    unsigned char greaterStackTop = greaterInt.pop();
-    cout << greaterStackTop << endl << smallerStackTop << endl;
-    int value = greaterStackTop - smallerStackTop;
-    cout << value;
-    unsigned char unit;
-    cout << endl << "---------" << endl;
-    if (value < 0 ) {
-        cout << "--------" << endl;
-        greaterInt.push((greaterInt.pop() - 1));
-        unit = static_cast<unsigned char>(value + 10);
-        cout << "--------" << endl;
-        cout << unit << endl;
-        cout << "--------" << endl;
-        finalAns.push(unit);
-    } else {
-        finalAns.push(value);
+    while (!greaterInt.isEmpty()) {
+        unsigned char smallerStackTop = smallerInt.pop();
+        unsigned char greaterStackTop = greaterInt.pop();
+        // cout << greaterStackTop << endl << smallerStackTop << endl;
+        int value = greaterStackTop - smallerStackTop;
+        // cout << value << endl;
+        unsigned char unit;
+        if (value < 0 ) {
+            greaterInt.push((greaterInt.pop() - 1));
+            // cout << greaterInt.top() << endl;
+            unit = value + 58;
+            // cout << unit << endl;
+            finalAns.push(unit);
+        } else {
+            finalAns.push(value + 48);
+        }
     }
-    cout << finalAns.top();
-    return "";
+    string finalReturn;
+    while (!finalAns.isEmpty()) {
+        finalReturn += finalAns.pop();
+    }
+    return finalReturn;
 
 }
 
