@@ -23,8 +23,11 @@ int main() {
 
     // Test for Function: (5)
     cout << "===========" << endl;
-    subtractLargeInts("19547465462", "5555555");
-
+    cout << "Enter two large Integers to subtract:\n";
+    string num1, num2;
+    cin >> num1 >> num2;
+    string result = subtractLargeInts(num1, num2);
+    cout << "The result is: " << result << endl;
     // Test for Function: (6)
 
 
