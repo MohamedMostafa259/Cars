@@ -57,20 +57,67 @@ string convertToNS(int num, int base) {
 
 // (5)
 string subtractLargeInts (const string &num1, const string &num2) {
+    // missing case if user's input is a negative number
+    bool negativeNum1, negativeNum2;
+    string validNum1, validNum2;
+    for (size_t i = 0; i < num1.length(); i++) {
+        if (num1[i] > '9' || num1[i] <= '0') {
+            continue;
+        } else {
+            for (size_t j = i; j < num1.length(); j++) {
+                if (num1[j] >= '0' && num1[j] <= '9') {
+                    validNum1 += num1[j];
+                } else {
+                    continue;
+                }
+            }
+            break;
+        }
+    }
+    for (size_t i = 0; i < num2.length(); i++) {
+        if (num2[i] > '9' || num2[i] <= '0') {
+            continue;
+        } else {
+            for (size_t j = i; j < num2.length(); j++) {
+                if (num2[j] >= '0' && num2[j] <= '9') {
+                    validNum2 += num2[j];
+                } else {
+                    continue;
+                }
+            }
+            break;
+        }
+    }
     StackList<unsigned char> greaterInt, smallerInt, finalAns;
     string greaterNum;
     string smallerNum;
-    size_t length1 = num1.length();
-    size_t length2 = num2.length();
+    size_t length1 = validNum1.length();
+    size_t length2 = validNum2.length();
     size_t differenceOfDigits = 0;
+    bool negativeValue = false;
     if (length1 > length2){
-        greaterNum = num1;
-        smallerNum = num2;
+        greaterNum = validNum1;
+        smallerNum = validNum2;
         differenceOfDigits = length1 - length2;
-    } else if (length2 > length1) {
-        greaterNum = num2;
-        smallerNum = num1;
+    } else if (length1 < length2) {
+        negativeValue = true;
+        greaterNum = validNum2;
+        smallerNum = validNum1;
         differenceOfDigits = length2 - length1;
+    } else if (length1 == length2) {
+        for (size_t i = 0; i <= length1; i++) {
+            if (i == length1) {
+                return "0";
+            } else if (validNum1[i] > validNum2[i]) {
+                greaterNum = validNum1;
+                smallerNum = validNum2;
+            } else if (validNum1[i] < validNum2[i]) {
+                greaterNum = validNum2;
+                smallerNum = validNum1;
+            } else {
+                continue;
+            }
+        }
     }
     for (size_t i = 0; i < differenceOfDigits; ++i) {
         smallerInt.push('0');
@@ -99,6 +146,8 @@ string subtractLargeInts (const string &num1, const string &num2) {
         }
     }
     string finalReturn;
+    if (negativeValue)
+        finalReturn = "-";
     while (!finalAns.isEmpty()) {
         finalReturn += finalAns.pop();
     }
