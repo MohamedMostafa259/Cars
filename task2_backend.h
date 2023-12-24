@@ -57,9 +57,12 @@ string convertToNS(int num, int base) {
 
 // (5)
 string subtractLargeInts (const string &num1, const string &num2) {
-    // missing case if user's input is a negative number
-    bool negativeNum1, negativeNum2;
+    bool negativeNum1, negativeNum2 = false;
     string validNum1, validNum2;
+    if (num1[0] == '-')
+        negativeNum1 = true;
+    if (num2[0] == '-')
+        negativeNum2 = true;
     for (size_t i = 0; i < num1.length(); i++) {
         if (num1[i] > '9' || num1[i] <= '0') {
             continue;
@@ -91,6 +94,7 @@ string subtractLargeInts (const string &num1, const string &num2) {
     StackList<unsigned char> greaterInt, smallerInt, finalAns;
     string greaterNum;
     string smallerNum;
+    string finalReturn;
     size_t length1 = validNum1.length();
     size_t length2 = validNum2.length();
     size_t differenceOfDigits = 0;
@@ -128,33 +132,41 @@ string subtractLargeInts (const string &num1, const string &num2) {
     for (char i : smallerNum) {
         smallerInt.push(i);
     }
-    while (!greaterInt.isEmpty()) {
-        unsigned char smallerStackTop = smallerInt.pop();
-        unsigned char greaterStackTop = greaterInt.pop();
-        // cout << greaterStackTop << endl << smallerStackTop << endl;
-        int value = greaterStackTop - smallerStackTop;
-        // cout << value << endl;
-        unsigned char unit;
-        if (value < 0 ) {
-            greaterInt.push((greaterInt.pop() - 1));
-            // cout << greaterInt.top() << endl;
-            unit = value + 58;
-            // cout << unit << endl;
-            finalAns.push(unit);
-        } else {
-            finalAns.push(value + 48);
+    if (negativeNum1 ^ negativeNum2) {  // xor bitwise operator "^" for the condition X + (-Y) OR (-X) + Y
+        while (!greaterInt.isEmpty()) {
+            unsigned char smallerStackTop = smallerInt.pop();
+            unsigned char greaterStackTop = greaterInt.pop();
+            // cout << greaterStackTop << endl << smallerStackTop << endl;
+            int value = greaterStackTop - smallerStackTop;
+            // cout << value << endl;
+            unsigned char unit;
+            if (value < 0 ) {
+                greaterInt.push((greaterInt.pop() - 1));
+                // cout << greaterInt.top() << endl;
+                unit = value + 58;
+                // cout << unit << endl;
+                finalAns.push(unit);
+            } else {
+                finalAns.push(value + 48);
+            }
         }
+
+        if (negativeValue)
+            finalReturn = "-";
+        while (!finalAns.isEmpty()) {
+            finalReturn += finalAns.pop();
+        }
+    } else if (!(negativeNum1 ^ negativeNum2)) { // x-nor bitwise operator for the condition -X-Y or X+Y
+        if (negativeNum1 & negativeNum2) {  // if -X-Y == -(X+Y)
+            finalReturn = "-";
+        }
+        // calculate X + Y
+        // not handled yet
     }
-    string finalReturn;
-    if (negativeValue)
-        finalReturn = "-";
-    while (!finalAns.isEmpty()) {
-        finalReturn += finalAns.pop();
-    }
+
     return finalReturn;
 
 }
-
 // (6)
 
 
