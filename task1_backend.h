@@ -73,9 +73,6 @@ public:
         } else {
             cout << "Car not found!" << endl;
         }
-        if (temp->carsNum == 0) {
-            
-        }
     }
     void search(const string& make, const string& model) {
         CarNode * temp = processSearch(make, model);
