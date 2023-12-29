@@ -46,6 +46,33 @@ public:
         }
     }
 
+
+
+
+
+
+
+    int search(const string &make, const string &model) {
+    
+            string makeLower = make;
+            string modelLower = model;
+    
+            transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
+            transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
+    
+            CarNode *temp = head;
+            while (temp != nullptr) {
+    
+                if (temp->make == makeLower && temp->model == modelLower) {
+                    cout << temp->carsNum << endl;
+                    return temp->carsNum;
+                }
+                temp = temp->next;
+            }
+            cout << "0" << endl;
+            return 0;
+        }
+
 };
 
 #endif /* TASK1_BACKEND_H */
