@@ -21,7 +21,24 @@ class SortedUniL {
 private:
     CarNode* head {};
     CarNode* tail {};
+    CarNode* processSearch(const string &make, const string &model) {
 
+        string makeLower = make;
+        string modelLower = model;
+
+        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
+        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
+
+        CarNode *temp = head;
+        while (temp != nullptr) {
+
+            if (temp->make == makeLower && temp->model == modelLower) {
+                return temp;
+            }
+            temp = temp->next;
+        }
+        return nullptr;
+    }
 public:
 
     void insert(const string& make, const string& model) {
@@ -48,35 +65,19 @@ public:
     }
 
 
-    CarNode* search(const string &make, const string &model) {
-
-        string makeLower = make;
-        string modelLower = model;
-
-        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
-        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
-
-        CarNode *temp = head;
-        while (temp != nullptr) {
-
-            if (temp->make == makeLower && temp->model == modelLower) {
-                return temp;
-            }
-            temp = temp->next;
-        }
-        return nullptr;
-    }
     void remove(const string& make, const string& model) {
-        CarNode * temp = this->search(make, model);
-        if (temp) {
+        CarNode * temp = this->processSearch(make, model);
+        if (temp->carsNum == 0) {
+            
+        } else if (temp) {
             temp->carsNum--;
-            cout << "Car removed successfully!" << endl;
+            cout << "One car removed successfully!" << endl;
         } else {
             cerr << "Car not found!" << endl;
         }
     }
-    void printSearch(const string& make, const string& model) {
-        CarNode * temp = search(make, model);
+    void search(const string& make, const string& model) {
+        CarNode * temp = processSearch(make, model);
         if (temp) {
             cout << "Number of cars found: " << temp->carsNum << endl;
         } else {
