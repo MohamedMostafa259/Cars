@@ -6,7 +6,20 @@
 using namespace std;
 int main() {
     // Test for Function: (2)
-
+    StackList<int> s1, s2;
+    s1.push(6);
+    s1.push(5);
+    s1.push(4);
+    s1.push(3);
+    copyStack(s1, s2);
+    cout << "S2: [";
+    while (!s2.isEmpty()) {
+        cout << s2.popFront();
+        if (!s2.isEmpty()) {
+            cout << ",";
+        }
+    }
+    cout << "]" << endl;
 
     // Test for Function: (3)
 
