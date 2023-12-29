@@ -169,6 +169,19 @@ string subtractLargeInts (const string &num1, const string &num2) {
 }
 // (6)
 
+//(7)
+void reverseQueue(QueueList<int>& q) {
+    StackList<int> s;
+    while (!q.isEmpty()) {
+        s.push(q.front());
+        q.dequeue();
+    }
+    while (!s.isEmpty()) {
+        q.enqueue(s.top());
+        s.pop();
+    }
+}
+
 
 
 
