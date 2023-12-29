@@ -7,8 +7,6 @@ using namespace std;
 
 template <typename T>
 void copyStack(StackList<T>& s1, StackList<T>& s2) {
-    StackList<T> temp;
-
 
     while (!s1.isEmpty()) {
         temp=s1.pop();
