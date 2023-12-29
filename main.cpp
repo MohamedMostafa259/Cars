@@ -7,14 +7,20 @@ using namespace std;
 int main() {
     // Test for Function: (2)
     StackList<int> s1, s2;
-    s1.push(6);
-    s1.push(5);
-    s1.push(4);
-    s1.push(3);
+    int n;
+    int value;
+    cout << "Enter number of stack elements:";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cout << "Enter value number " << i << ":";
+        cin >> value;
+        s1.push(value);
+    }
     copyStack(s1, s2);
+    s2.reverse();
     cout << "S2: [";
     while (!s2.isEmpty()) {
-        cout << s2.popFront();
+        cout << s2.pop();
         if (!s2.isEmpty()) {
             cout << ",";
         }
