@@ -9,13 +9,13 @@ template <typename T>
 void copyStack(StackList<T>& s1, StackList<T>& s2) {
 
     while (!s1.isEmpty()) {
-       T temp=s1.pop();
+       T temp=s1.top();
         s1.pop();
         s1.push(temp);
     }
 
     while (!s2.isEmpty()) {
-        T temp=s2.pop();
+        T temp=s2.top();
         s2.pop();
         s1.push(temp);
     }
