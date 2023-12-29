@@ -26,6 +26,16 @@ public:
         return T(); // return default value
     }
 
+    T popFront() {
+        if (!isEmpty()) {
+            T res = l.front();
+            l.pop_front();
+            return res;
+        }
+        cout << "Stack is Empty!!\n";
+        return T(); // return default value
+    }
+
     T top() {
         if (!isEmpty()) 
             return l.back();
