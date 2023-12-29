@@ -7,17 +7,19 @@ using namespace std;
 
 template <typename T>
 void copyStack(StackList<T>& s1, StackList<T>& s2) {
-    StackList<T> tempStack;
+    StackList<T> temp;
 
 
     while (!s1.isEmpty()) {
-        tempStack.push(s1.top());
+        temp=s1.pop();
         s1.pop();
+        s1.push(temp);
     }
 
-    while (!tempStack.isEmpty()) {
-        s2.push(tempStack.top());
-        tempStack.pop();
+    while (!s2.isEmpty()) {
+        temp=s2.pop();
+        s2.pop();
+        s1.push(temp);
     }
 }
 
