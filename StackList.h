@@ -50,6 +50,9 @@ public:
     void clear() {
         l.clear();
     }
+    void reverse () {
+        l.reverse();
+    }
 };
 
 #endif /* STACK_LIST_H */
