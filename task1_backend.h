@@ -3,15 +3,16 @@
 
 #include <iostream>
 #include <algorithm>
+
 using namespace std;
 
 class CarNode {
-public: 
-    string make;  
-    string model; 
-    int carsNum;  
-    CarNode* next; 
-    CarNode() {next = 0;}  
+public:
+    string make;
+    string model;
+    int carsNum{};
+    CarNode* next;
+    CarNode() : next(0) {}
     CarNode(const string& mk, const string& mod, CarNode* in = 0) : make(mk), model(mod), next(in) {
         carsNum = 1;
     }
@@ -52,28 +53,28 @@ public:
                     cur->carsNum++;
                     return;
                 }
-                else if (make < cur->make || (cur->make == make && model < cur->model)) { 
+                else if (make < cur->make || (cur->make == make && model < cur->model)) {
                     CarNode* node = new CarNode(make, model);
                     if (prv) prv->next = node;
                     else head = node;
                     node->next = cur;
                     return;
                 }
-            } 
+            }
             prv->next = tail = new CarNode(make, model); // if NOT inserted, make a new tail
         }
     }
 
-
     void remove(const string& make, const string& model) {
         CarNode * temp = this->processSearch(make, model);
-        if (temp->carsNum == 0) {
-            
-        } else if (temp) {
+        if (temp) {
             temp->carsNum--;
             cout << "One car removed successfully!" << endl;
         } else {
-            cerr << "Car not found!" << endl;
+            cout << "Car not found!" << endl;
+        }
+        if (temp->carsNum == 0) {
+            
         }
     }
     void search(const string& make, const string& model) {
@@ -81,10 +82,9 @@ public:
         if (temp) {
             cout << "Number of cars found: " << temp->carsNum << endl;
         } else {
-            cerr << "Car not found!" << endl;
+            cout << "Car not found!" << endl;
         }
     }
-
 };
 
 #endif /* TASK1_BACKEND_H */
