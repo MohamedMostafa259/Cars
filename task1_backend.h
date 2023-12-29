@@ -2,6 +2,7 @@
 #define TASK1_BACKEND_H
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 class CarNode {
@@ -47,31 +48,41 @@ public:
     }
 
 
+    CarNode* search(const string &make, const string &model) {
 
+        string makeLower = make;
+        string modelLower = model;
 
+        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
+        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
 
+        CarNode *temp = head;
+        while (temp != nullptr) {
 
-
-    int search(const string &make, const string &model) {
-    
-            string makeLower = make;
-            string modelLower = model;
-    
-            transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
-            transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
-    
-            CarNode *temp = head;
-            while (temp != nullptr) {
-    
-                if (temp->make == makeLower && temp->model == modelLower) {
-                    cout << temp->carsNum << endl;
-                    return temp->carsNum;
-                }
-                temp = temp->next;
+            if (temp->make == makeLower && temp->model == modelLower) {
+                return temp;
             }
-            cout << "0" << endl;
-            return 0;
+            temp = temp->next;
         }
+        return nullptr;
+    }
+    void remove(const string& make, const string& model) {
+        CarNode * temp = this->search(make, model);
+        if (temp) {
+            temp->carsNum--;
+            cout << "Car removed successfully!" << endl;
+        } else {
+            cerr << "Car not found!" << endl;
+        }
+    }
+    void printSearch(const string& make, const string& model) {
+        CarNode * temp = search(make, model);
+        if (temp) {
+            cout << "Number of cars found: " << temp->carsNum << endl;
+        } else {
+            cerr << "Car not found!" << endl;
+        }
+    }
 
 };
 
