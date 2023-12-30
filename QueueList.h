@@ -36,6 +36,10 @@ class QueueList {
         void clear() {
             elements.clear();
         }
+
+        int size() {
+            return elements.size();
+        }
 };
 
 #endif //QueueList_H
