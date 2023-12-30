@@ -22,24 +22,6 @@ class SortedUniL {
 private:
     CarNode* head {};
     CarNode* tail {};
-    CarNode* processSearch(const string &make, const string &model) {
-
-        string makeLower = make;
-        string modelLower = model;
-
-        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
-        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
-
-        CarNode *temp = head;
-        while (temp != nullptr) {
-
-            if (temp->make == makeLower && temp->model == modelLower) {
-                return temp;
-            }
-            temp = temp->next;
-        }
-        return nullptr;
-    }
 public:
 
     void insert(const string& make, const string& model) {
@@ -65,23 +47,58 @@ public:
         }
     }
 
+    void search(const string &make, const string &model) {
+
+        string makeLower = make;
+        string modelLower = model;
+
+        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
+        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
+
+        CarNode *temp = head;
+        while (temp != nullptr) {
+
+            if (temp->make == makeLower && temp->model == modelLower) {
+                cout << "Number of cars found: " << temp->carsNum << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+        cout << "Car not found!" << endl;
+    }
+
     void remove(const string& make, const string& model) {
-        CarNode * temp = this->processSearch(make, model);
-        if (temp) {
-            temp->carsNum--;
+        string makeLower = make;
+        string modelLower = model;
+
+        transform(makeLower.begin(), makeLower.end(), makeLower.begin(), ::tolower);
+        transform(modelLower.begin(), modelLower.end(), modelLower.begin(), ::tolower);
+
+        CarNode *current = head;
+        CarNode *prev = nullptr;
+
+        while (current != nullptr) {
+            if (current->make == makeLower && current->model == modelLower) {
+                break;
+            }
+            prev = current;
+            current = current->next;
+        }
+
+        if (current) {
+            current->carsNum--;
             cout << "One car removed successfully!" << endl;
         } else {
             cout << "Car not found!" << endl;
         }
-    }
-    void search(const string& make, const string& model) {
-        CarNode * temp = processSearch(make, model);
-        if (temp) {
-            cout << "Number of cars found: " << temp->carsNum << endl;
-        } else {
-            cout << "Car not found!" << endl;
+        if (head == tail) {
+            CarNode * deleted = head;
+            head = nullptr;
+            tail = head;
+            delete deleted;
         }
     }
+
 };
 
 #endif /* TASK1_BACKEND_H */
