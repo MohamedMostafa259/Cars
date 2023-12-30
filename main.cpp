@@ -42,11 +42,14 @@ int main() {
 
     // Test for Function: (5)
     cout << "===========" << endl;
-    cout << "Enter two large Integers to subtract:\n";
-    string num1, num2;
-    cin >> num1 >> num2;
-    string result = subtractLargeInts(num1, num2);
-    cout << "The result is: " << result << endl;
+    cout << "Enter two large Integers to subtract in the form Z = X + Y:\n";
+    string x, y;
+    cout << "X =";
+    cin >> x;
+    cout << "Y =";
+    cin >> y;
+    string z = subtractLargeInts(x, y);
+    cout << "Z = X + Y = " << z << endl;
     // Test for Function: (6)
 
 
