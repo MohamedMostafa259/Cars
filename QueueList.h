@@ -1,12 +1,12 @@
-#ifndef QUEUEProject_H
-#define QUEUEProject_H
+#ifndef QueueList_H
+#define QueueList_H
 
 #include <iostream>
 #include <list>
 using namespace std;
 
 template <typename T>
-class TemplateQueueList {
+class QueueList {
         private:
         list<T> elements;
 
@@ -38,4 +38,4 @@ class TemplateQueueList {
         }
 };
 
-#endif //QUEUEProject_H
+#endif //QueueList_H
