@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include "StackList.h"
+#include "QueueList.h"
 using namespace std;
 
+//(2)
 template <typename T>
 void copyStack(StackList<T>& s1, StackList<T>& s2) {
 
@@ -20,8 +22,6 @@ void copyStack(StackList<T>& s1, StackList<T>& s2) {
         s1.push(temp);
     }
 }
-
-
 
 // (3)
 
@@ -167,7 +167,30 @@ string subtractLargeInts (const string &num1, const string &num2) {
     return finalReturn;
 
 }
+
 // (6)
+template <typename T>
+bool moveNthElem(QueueList<T>& q, int n) {
+    if (!(0 < n && n <= q.size()))
+        return false;
+    
+    QueueList<T> tmp;
+    for (int i = 1; i < n; i++) // n-1 iterations 
+        tmp.enqueue(q.front()), q.dequeue();
+    
+    T target = q.front(); // the nth element
+    q.dequeue();
+
+    while (!q.isEmpty())
+        tmp.enqueue(q.front()), q.dequeue(); // push the remaining values after the target
+
+    // Now, q is empty
+    q.enqueue(target); // put the nth element at the first
+    while (!tmp.isEmpty())
+        q.enqueue(tmp.front()), tmp.dequeue(); // push the remaining values
+
+    return true;
+}
 
 //(7)
 void reverseQueue(QueueList<int>& q) {
@@ -181,8 +204,5 @@ void reverseQueue(QueueList<int>& q) {
         s.pop();
     }
 }
-
-
-
 
 #endif /* TASK2_BACKEND_H */
