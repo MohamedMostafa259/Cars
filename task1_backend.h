@@ -112,6 +112,18 @@ public:
 
     }
 
+void print(){
+    if(!temp){
+        cout<<"No cars in the list."<<endl;
+        return;
+    }
+    cout<<"Lsit of Cars:"<<endl;
+    while(temp!=NULL){
+        cout<<"Make:"<<temp->make<<",Model:"<<temp->model<<",Quantity:"<<temp->carsNum<<endl;
+        temp=temp->next;
+    }
+}
+
 };
 
 #endif /* TASK1_BACKEND_H */
