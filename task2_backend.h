@@ -9,17 +9,17 @@ using namespace std;
 //(2)
 template <typename T>
 void copyStack(StackList<T>& s1, StackList<T>& s2) {
+    StackList<T> tempStack;
+
 
     while (!s1.isEmpty()) {
-       T temp=s1.top();
+        tempStack.push(s1.top());
         s1.pop();
-        s1.push(temp);
     }
 
-    while (!s2.isEmpty()) {
-        T temp=s2.top();
-        s2.pop();
-        s1.push(temp);
+    while (!tempStack.isEmpty()) {
+        s2.push(tempStack.top());
+        tempStack.pop();
     }
 }
 
