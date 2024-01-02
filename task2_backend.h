@@ -8,18 +8,15 @@ using namespace std;
 
 //(2)
 template <typename T>
-void copyStack(StackList<T>& s1, StackList<T>& s2) {
-    StackList<T> tempStack;
-
+void copyStack2(StackList<T>& s1, StackList<T>& s2) {
 
     while (!s1.isEmpty()) {
-        tempStack.push(s1.top());
-        s1.pop();
-    }
-
-    while (!tempStack.isEmpty()) {
-        s2.push(tempStack.top());
-        tempStack.pop();
+        T temp=s1.pop();
+        s2.push(temp);
+  }
+    while (!s2.isEmpty()) {
+        T temp= s2.pop();
+        s1.push(temp);
     }
 }
 
