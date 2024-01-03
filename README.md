@@ -50,7 +50,11 @@ The program utilizes recursion, instead of an additional STL stack or array, to 
 Users can input a decimal number and a desired base (between 2 and 20), and the program converts the decimal number to the specified base.
 
 ### 2.3 Subtract 2 Big Integers
-Users can input two large integers, and the program performs subtraction, returning the result.
+Users can input two large integers, and the program performs subtraction, returning the result. This function handles the below four possible options:
+##### Case 1: The first number is positive and the second number is positive
+##### Case 2: The first number is positive and the second number is negative
+##### Case 3: The first number is negative and the second number is positive
+##### Case 4: The first number is negative and the second number is negative
 
 ### 2.4 Move Nth Element to Front in a Queue of Strings
 This option moves the Nth element to the front in a queue of strings, where N is a user-inputted index (1-based index).
