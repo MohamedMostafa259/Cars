@@ -60,13 +60,13 @@ string convertToNS(int num, int base) {
 // (5)
 string subtractLargeInts (const string &num1, const string &num2) {
     // used size_t instead of int to avoid narrowing unsigned to signed int (ide recommendation)
-    bool negativeNum1 = false, negativeNum2 = false;
+    bool negativeNum1 = false, negativeNum2 = true;
     string validNum1, validNum2;
     // Check if the input begins with a negative sign flag
     if (num1[0] == '-')
         negativeNum1 = true;
     if (num2[0] == '-')
-        negativeNum2 = true;
+        negativeNum2 = false;
     // filtering the strings
     // filter for num1
     for (size_t i = 0; i < num1.length(); i++) { // traversing through num1
@@ -108,11 +108,24 @@ string subtractLargeInts (const string &num1, const string &num2) {
     bool negativeValue = false;
     // determine the greater string
     if (length1 > length2){
+        if (negativeNum1^negativeNum2) {
+            if (negativeNum1) negativeValue = true;
+        } else {
+            if (negativeNum1 & negativeNum2) {
+                negativeValue = true;
+            }
+        }
         greaterNum = validNum1;
         smallerNum = validNum2;
         differenceOfDigits = length1 - length2;
     } else if (length1 < length2) {
-        negativeValue = true;
+        if (negativeNum1^negativeNum2) {
+            if (negativeNum2) negativeValue = true;
+        } else {
+            if (negativeNum1 & negativeNum2) {
+                negativeValue = true;
+            }
+        }
         greaterNum = validNum2;
         smallerNum = validNum1;
         differenceOfDigits = length2 - length1;
@@ -120,13 +133,19 @@ string subtractLargeInts (const string &num1, const string &num2) {
                                     // to determine the greater number
         for (size_t i = 0; i <= length1; i++) { // traverse through validNum1 for example
             if (i == length1) { // if the two number are exactly equal return zero
-                return "0";
+                if (negativeNum1^negativeNum2) return "0"; // -x+y or x-y
+                else {
+                    if (negativeNum1 & negativeNum2) negativeValue = true;
+                }
                 // find the greater digit and assign them to greaterNum and smallerNum
             } else if (validNum1[i] > validNum2[i]) {
+                if(negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum1;
                 smallerNum = validNum2;
                 break;
             } else if (validNum1[i] < validNum2[i]) {
+                if (negativeNum1^negativeNum2) negativeValue = true; // different
+                if (negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum2;
                 smallerNum = validNum1;
                 break;
@@ -138,6 +157,8 @@ string subtractLargeInts (const string &num1, const string &num2) {
     for (size_t i = 0; i < differenceOfDigits; ++i) { // push zeros to the smaller string to be equal in number of digits
         smallerInt.push('0');
     }
+    greaterInt.push('0');
+    smallerInt.push('0');
     for (char i : greaterNum) { // push greaterNum in a stack
         greaterInt.push(i);
     }
@@ -148,7 +169,7 @@ string subtractLargeInts (const string &num1, const string &num2) {
     unsigned char greaterStackTop;
     unsigned char unit;
     int value;
-    if (negativeNum1 ^ negativeNum2) {  // xor bitwise operator "^" for the condition X + (-Y) OR (-X) + Y
+    if (negativeNum1 ^ negativeNum2) {  // xor bitwise operator "^" for the condition X - (+Y) OR (-X) +Y
         while (!greaterInt.isEmpty()) {
             smallerStackTop = smallerInt.pop();
             greaterStackTop = greaterInt.pop();
@@ -163,15 +184,51 @@ string subtractLargeInts (const string &num1, const string &num2) {
         }
         if (negativeValue) // if the flag is true then add a negative sign
             finalReturn = "-";
-    } else if (!(negativeNum1 ^ negativeNum2)) { // x-nor bitwise operator for the condition -X-Y or X+Y
-        // Not handled as it is not requested in the project
-        return "Not handled\n";
+    } else if (!(negativeNum1 ^ negativeNum2)) { // x-nor bitwise operator for the condition (-X - +Y) or (+X - -Y)
+        while (!greaterInt.isEmpty()) {
+            smallerStackTop = smallerInt.pop();
+            cout << "smaller stack top: " << smallerStackTop << endl;
+            greaterStackTop = greaterInt.pop();
+            cout << "greater stack top: " << greaterStackTop << endl;
+            value = (greaterStackTop - 48) + (smallerStackTop - 48);
+            cout << "value : " << value << endl;
+            if (value >= 10) {
+                cout << "value is greater than or equal 10" << endl;
+                greaterInt.push((greaterInt.pop() + 1));
+                cout <<  greaterInt.top() << endl;
+                unit = value - 10 + 48; // 48 to get the exact int value as char
+                cout << "unit : " << unit << endl;
+                finalAns.push(unit);
+            } else {
+                cout << "201) value: " << value << endl;
+                finalAns.push(value + 48);
+                cout << finalAns.top() << endl;
+            }
+            cout << finalReturn << endl;
+        }
+        if (negativeValue) // if the flag is true then add a negative sign
+            finalReturn = "-";
     }
 
     while (!finalAns.isEmpty()) {
         finalReturn += finalAns.pop(); // pop the digits from the stack and add them to finalReturn
     }
-    return finalReturn;
+    // Remove initial zeros
+    string checkedFinalReturn;
+    bool firstChar = false;
+    for (char k : finalReturn) {
+        if (!firstChar) {
+            if (k == '0') {
+                continue;
+            }else {
+                if (k != '-') { // exclude '-' sign
+                    firstChar = true;
+                }
+            }
+        }
+        checkedFinalReturn += k;
+    }
+    return checkedFinalReturn;
 
 }
 
