@@ -137,14 +137,17 @@ string subtractLargeInts (const string &num1, const string &num2) {
                 else {
                     if (negativeNum1 & negativeNum2) negativeValue = true;
                 }
+                greaterNum = validNum1;
+                smallerNum = validNum2;
                 // find the greater digit and assign them to greaterNum and smallerNum
             } else if (validNum1[i] > validNum2[i]) {
+                if (negativeNum1^negativeNum2) negativeValue = true; // different
                 if(negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum1;
                 smallerNum = validNum2;
                 break;
             } else if (validNum1[i] < validNum2[i]) {
-                if (negativeNum1^negativeNum2) negativeValue = true; // different
+                if (!negativeNum1^negativeNum2) negativeValue = true; // different
                 if (negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum2;
                 smallerNum = validNum1;
@@ -187,24 +190,16 @@ string subtractLargeInts (const string &num1, const string &num2) {
     } else if (!(negativeNum1 ^ negativeNum2)) { // x-nor bitwise operator for the condition (-X - +Y) or (+X - -Y)
         while (!greaterInt.isEmpty()) {
             smallerStackTop = smallerInt.pop();
-            cout << "smaller stack top: " << smallerStackTop << endl;
             greaterStackTop = greaterInt.pop();
-            cout << "greater stack top: " << greaterStackTop << endl;
             value = (greaterStackTop - 48) + (smallerStackTop - 48);
-            cout << "value : " << value << endl;
             if (value >= 10) {
-                cout << "value is greater than or equal 10" << endl;
                 greaterInt.push((greaterInt.pop() + 1));
                 cout <<  greaterInt.top() << endl;
                 unit = value - 10 + 48; // 48 to get the exact int value as char
-                cout << "unit : " << unit << endl;
                 finalAns.push(unit);
             } else {
-                cout << "201) value: " << value << endl;
                 finalAns.push(value + 48);
-                cout << finalAns.top() << endl;
             }
-            cout << finalReturn << endl;
         }
         if (negativeValue) // if the flag is true then add a negative sign
             finalReturn = "-";
