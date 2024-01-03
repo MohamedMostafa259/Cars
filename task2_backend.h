@@ -141,13 +141,17 @@ string subtractLargeInts (const string &num1, const string &num2) {
                 smallerNum = validNum2;
                 // find the greater digit and assign them to greaterNum and smallerNum
             } else if (validNum1[i] > validNum2[i]) {
-                if (negativeNum1^negativeNum2) negativeValue = true; // different
+                if (negativeNum1^negativeNum2) {
+                    if (negativeNum1) negativeValue = true;
+                }
                 if(negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum1;
                 smallerNum = validNum2;
                 break;
             } else if (validNum1[i] < validNum2[i]) {
-                if (!negativeNum1^negativeNum2) negativeValue = true; // different
+                if (negativeNum1^negativeNum2) {
+                    if (negativeNum2) negativeValue = true;
+                }
                 if (negativeNum1 & negativeNum2) negativeValue = true;
                 greaterNum = validNum2;
                 smallerNum = validNum1;
@@ -226,7 +230,6 @@ string subtractLargeInts (const string &num1, const string &num2) {
     return checkedFinalReturn;
 
 }
-
 // (6)
 template <typename T>
 bool moveNthElem(QueueList<T>& q, int n) {
