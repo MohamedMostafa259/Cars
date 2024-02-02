@@ -1,5 +1,5 @@
 # Cars Project
-**A Simple C++ Console Application has Two Tasks**
+**A Simple C++ Console Application Has Two Tasks**
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -50,7 +50,7 @@ The program utilizes recursion, instead of an additional STL stack or array, to 
 Users can input a decimal number and a desired base (between 2 and 20), and the program converts the decimal number to the specified base.
 
 ### 2.3 Subtract 2 Big Integers
-Users can input two large integers, and the program performs subtraction, returning the result. This function handles the below four possible options:
+Users can input two large integers, and the program performs subtraction, returning the result. This function handles the below four possible cases:
 ##### Case 1: The first number is positive and the second number is positive
 ##### Case 2: The first number is positive and the second number is negative
 ##### Case 3: The first number is negative and the second number is positive
